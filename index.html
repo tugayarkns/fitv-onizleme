@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>FİTV Kurgu Önizlemesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a dark "control room" — player left, timecode + chapter rundown right; stacks on phones. Single dark look by choice (video review). */
+:root {
+  --curtain: #0b1024;      /* stage curtain navy */
+  --panel: #121a36;
+  --line: #24305a;
+  --ink: #e9ecf7;
+  --muted: #98a2c7;
+  --signal: #ffd400;       /* FİTV yellow */
+  --song: #7fd1ff;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--curtain); color: var(--ink); }
+body { margin: 0; font-family: var(--body); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1280px; margin: 0 auto; display: grid; gap: 20px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4vw, 40px); line-height: 1.05; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--signal); }
+.meta { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.meta b { color: var(--ink); font-weight: 600; }
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+.player { min-width: 0; display: grid; gap: 12px; }
+video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--line); display: block; }
+.tc-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); }
+.tc { font-family: var(--mono); font-weight: 600; font-size: 34px; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; color: var(--signal); line-height: 1; }
+.tc small { font-size: 15px; color: var(--muted); font-weight: 400; }
+.now { flex: 1 1 180px; min-width: 0; font-size: 14px; color: var(--muted); }
+.now strong { display: block; color: var(--ink); font-weight: 600; font-size: 15px; overflow-wrap: anywhere; }
+button { font: inherit; cursor: pointer; }
+.copy { font-family: var(--body); font-weight: 600; font-size: 14px; color: var(--curtain); background: var(--signal); border: 0; padding: 10px 14px; }
+.copy:focus-visible, .chap:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.hint { font-size: 14px; color: var(--muted); margin: 0; max-width: 70ch; }
+.hint b { color: var(--ink); font-weight: 600; }
+aside { background: var(--panel); border: 1px solid var(--line); min-width: 0; }
+aside h2 { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+ol { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: auto; }
+@media (max-width: 900px) { ol { max-height: none; } }
+.chap { width: 100%; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; align-items: baseline; text-align: left; background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--line); padding: 9px 14px; }
+.chap:hover { background: #18224a; }
+.chap .t { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chap .n { font-size: 14px; overflow-wrap: anywhere; }
+.chap.song .n::before { content: "♪ "; color: var(--song); }
+.chap.on { background: #1b2752; box-shadow: inset 3px 0 0 var(--signal); }
+.chap.on .t { color: var(--signal); }
+.toast { min-height: 1.5em; font-size: 13px; color: var(--signal); font-family: var(--mono); }
+@media (prefers-reduced-motion: no-preference) { .chap { transition: background 120ms; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>FİTV <em>Kurgu Önizlemesi</em></h1>
+    <div class="meta"><span>Süre <b>27:15</b></span><span><b>540p</b> önizleme</span><span>Final değil</span></div>
+  </header>
+
+  <div class="stage">
+    <section class="player" aria-label="Video oynatıcı">
+      <video id="v" controls playsinline preload="metadata" poster="poster.jpg"></video>
+      <div class="tc-bar">
+        <div class="tc" id="tc" aria-live="off">00:00 <small>/ 27:15</small></div>
+        <div class="now">Şu anki bölüm<strong id="now">Öne Çıkanlar</strong></div>
+        <button class="copy" id="copy" type="button">Zamanı kopyala</button>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+      <p class="hint">Düzeltme yazarken <b>dakikayı da belirtin</b>, örneğin: “12:40 civarı kısaltılsın” ya da “24:19 kapanış daha erken başlasın”. Videoyu durdurduğunuz yerdeki zamanı <b>Zamanı kopyala</b> düğmesiyle alabilirsiniz. Alt bantlardaki köşeli parantezli yerler isim gelecek yerler.</p>
+    </section>
+
+    <aside aria-label="Bölümler">
+      <h2>Bölümler · 21</h2>
+      <ol id="list"></ol>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<script>
+const CH = [
+  ["00:00","Öne Çıkanlar"],["00:34","Açılış ve Tanışma"],["01:00","“Zehirli” Kime Yazıldı?"],["01:31","Müzik Dersinde Rap Şov"],
+  ["03:22","İlham Kaynakları"],["04:12","Bir Daha Asla Dediğin Davranış"],["05:01","Meydan Okuma: Anında Şarkı"],
+  ["06:41","Sahnede Evlenme Teklifleri"],["07:34","Canlı: Bir Tek Ben Anlarım"],["10:09","Oyun: Mırıldan, Tahmin Et"],
+  ["13:22","Canlı: Papatyalar (Yayınlanmamış)"],["15:17","Cesaret Sorusu: Nazlı Kim?"],["16:14","Kulaklık Kazaları"],
+  ["16:45","Sahne Totemi: Sakız"],["17:38","Ablalar ve DJ Baba"],["18:21","18 Yaşındaki Haline Mesaj"],["19:22","Canlı: Zalim"],
+  ["21:04","Canlı: Güneş Topla Benim İçin"],["23:00","Hızlı Sorular: Düşünmek Yasak"],["24:19","Kapanış: Nazlı"],["26:31","Kamera Arkası"]
+].map(([t, n]) => { const [m, s] = t.split(":").map(Number); return { t, s: m * 60 + s, n }; });
+
+const v = document.getElementById("v");
+const list = document.getElementById("list");
+const fmt = x => { x = Math.max(0, Math.floor(x)); return String(Math.floor(x / 60)).padStart(2, "0") + ":" + String(x % 60).padStart(2, "0"); };
+
+const btns = CH.map((c, i) => {
+  const li = document.createElement("li");
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chap" + (c.n.startsWith("Canlı:") || c.n.startsWith("Kapanış") ? " song" : "");
+  b.innerHTML = `<span class="t">${c.t}</span><span class="n"></span>`;
+  b.querySelector(".n").textContent = c.n.replace(/^Canlı: /, "");
+  b.addEventListener("click", () => { v.currentTime = c.s + 0.05; v.play().catch(() => {}); });
+  li.appendChild(b); list.appendChild(li); return b;
+});
+
+// playlist is served as .txt (hosting only serves standard types); hls.js parses it by content
+const src = "hls/index.txt";
+if (window.Hls && Hls.isSupported()) { const h = new Hls({ maxBufferLength: 30 }); h.loadSource(src); h.attachMedia(v); }
+else if (v.canPlayType("application/vnd.apple.mpegurl")) { v.src = "hls/index.m3u8"; }
+else { document.getElementById("toast").textContent = "Bu tarayıcı videoyu oynatamıyor. Chrome, Edge, Firefox ya da Safari ile açın."; }
+
+let cur = -1;
+function tick() {
+  const t = v.currentTime || 0;
+  document.getElementById("tc").firstChild.nodeValue = fmt(t) + " ";
+  let k = 0; for (let i = 0; i < CH.length; i++) if (t >= CH[i].s - 0.3) k = i;
+  if (k !== cur) { if (btns[cur]) btns[cur].classList.remove("on"); btns[k].classList.add("on"); cur = k; document.getElementById("now").textContent = CH[k].n; }
+}
+v.addEventListener("timeupdate", tick); v.addEventListener("seeked", tick); tick();
+
+document.getElementById("copy").addEventListener("click", () => {
+  const txt = fmt(v.currentTime || 0) + " (" + CH[cur].n + ")";
+  const toast = document.getElementById("toast");
+  navigator.clipboard.writeText(txt).then(() => { toast.textContent = "Kopyalandı: " + txt; })
+    .catch(() => { toast.textContent = "Kopyalanamadı, zamanı elle yazın: " + txt; });
+});
+</script>
+</body>
+</html>

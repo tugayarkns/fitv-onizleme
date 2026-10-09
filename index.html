@@ -66,19 +66,19 @@ ol { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: aut
 <div class="wrap">
   <header>
     <h1>FİTV <em>Kurgu Önizlemesi</em></h1>
-    <div class="meta"><span>Süre <b>27:15</b></span><span><b>540p</b> önizleme</span><span>Final değil</span></div>
+    <div class="meta"><span>Kurgu <b>v2</b></span><span>Süre <b>29:59</b></span><span><b>540p</b> önizleme</span><span>Final değil</span></div>
   </header>
 
   <div class="stage">
     <section class="player" aria-label="Video oynatıcı">
       <video id="v" controls playsinline preload="metadata" poster="poster.jpg"></video>
       <div class="tc-bar">
-        <div class="tc" id="tc" aria-live="off">00:00 <small>/ 27:15</small></div>
+        <div class="tc" id="tc" aria-live="off">00:00 <small>/ 29:59</small></div>
         <div class="now">Şu anki bölüm<strong id="now">Öne Çıkanlar</strong></div>
         <button class="copy" id="copy" type="button">Zamanı kopyala</button>
       </div>
       <div class="toast" id="toast" role="status"></div>
-      <p class="hint">Düzeltme yazarken <b>dakikayı da belirtin</b>, örneğin: “12:40 civarı kısaltılsın” ya da “24:19 kapanış daha erken başlasın”. Videoyu durdurduğunuz yerdeki zamanı <b>Zamanı kopyala</b> düğmesiyle alabilirsiniz. Alt bantlardaki köşeli parantezli yerler isim gelecek yerler.</p>
+      <p class="hint">Düzeltme yazarken <b>dakikayı da belirtin</b>, örneğin: “12:40 civarı kısaltılsın” ya da “27:06 kapanış daha erken başlasın”. Videoyu durdurduğunuz yerdeki zamanı <b>Zamanı kopyala</b> düğmesiyle alabilirsiniz. Alt bantlardaki köşeli parantezli yerler isim gelecek yerler.</p>
     </section>
 
     <aside aria-label="Bölümler">
@@ -91,12 +91,12 @@ ol { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: aut
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
 <script>
 const CH = [
-  ["00:00","Öne Çıkanlar"],["00:34","Açılış ve Tanışma"],["01:00","“Zehirli” Kime Yazıldı?"],["01:31","Müzik Dersinde Rap Şov"],
-  ["03:22","İlham Kaynakları"],["04:12","Bir Daha Asla Dediğin Davranış"],["05:01","Meydan Okuma: Anında Şarkı"],
-  ["06:41","Sahnede Evlenme Teklifleri"],["07:34","Canlı: Bir Tek Ben Anlarım"],["10:09","Oyun: Mırıldan, Tahmin Et"],
-  ["13:22","Canlı: Papatyalar (Yayınlanmamış)"],["15:17","Cesaret Sorusu: Nazlı Kim?"],["16:14","Kulaklık Kazaları"],
-  ["16:45","Sahne Totemi: Sakız"],["17:38","Ablalar ve DJ Baba"],["18:21","18 Yaşındaki Haline Mesaj"],["19:22","Canlı: Zalim"],
-  ["21:04","Canlı: Güneş Topla Benim İçin"],["23:00","Hızlı Sorular: Düşünmek Yasak"],["24:19","Kapanış: Nazlı"],["26:31","Kamera Arkası"]
+  ["00:00","Öne Çıkanlar"],["00:26","Açılış"],["01:08","“Zehirli” Kime Yazıldı?"],["01:40","Müzik Dersinde Rap Şov"],
+  ["03:20","İlham Kaynakları"],["04:07","Seni Kim Soğutur?"],["05:17","Meydan Okuma: Üç Kelimeyle Şarkı"],
+  ["07:00","Sahnede Evlenme Teklifleri"],["08:26","Canlı: Bir Tek Ben Anlarım"],["11:11","Oyun: Mırıldan, Tahmin Et"],
+  ["14:17","Canlı: Papatyalar (Yayınlanmamış)"],["16:14","Cesaret Sorusu: Nazlı Kim?"],["17:43","Kulaklık Kazaları"],
+  ["18:27","Sahne Totemi: Sakız"],["19:21","Ablalar ve DJ Baba"],["20:17","18 Yaşındaki Haline Mesaj"],["21:42","Canlı: Zalim"],
+  ["23:27","Canlı: Güneş Topla Benim İçin"],["25:21","Hızlı Sorular: Düşünmek Yasak"],["27:06","Kapanış: Nazlı"],["29:28","Kamera Arkası"]
 ].map(([t, n]) => { const [m, s] = t.split(":").map(Number); return { t, s: m * 60 + s, n }; });
 
 const v = document.getElementById("v");

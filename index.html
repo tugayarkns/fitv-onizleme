@@ -66,14 +66,14 @@ ol { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: aut
 <div class="wrap">
   <header>
     <h1>FİTV <em>Kurgu Önizlemesi</em></h1>
-    <div class="meta"><span>Kurgu <b>v7</b></span><span>Süre <b>29:21</b></span><span><b>540p</b> önizleme</span><span>Final değil</span></div>
+    <div class="meta"><span>Kurgu <b>v8</b></span><span>Süre <b>29:56</b></span><span><b>540p</b> önizleme</span><span>Final değil</span></div>
   </header>
 
   <div class="stage">
     <section class="player" aria-label="Video oynatıcı">
       <video id="v" controls playsinline preload="metadata" poster="poster.jpg"></video>
       <div class="tc-bar">
-        <div class="tc" id="tc" aria-live="off">00:00 <small>/ 29:21</small></div>
+        <div class="tc" id="tc" aria-live="off">00:00 <small>/ 29:56</small></div>
         <div class="now">Şu anki bölüm<strong id="now">Öne Çıkanlar</strong></div>
         <button class="copy" id="copy" type="button">Zamanı kopyala</button>
       </div>
@@ -91,7 +91,7 @@ ol { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: aut
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
 <script>
 const CH = [
-  ["00:00","Öne Çıkanlar"],["00:22","Açılış"],["01:04","“Zehirli” Kime Yazıldı?"],["01:36","Müzik Dersinde Rap Şov"],["02:39","İlham Kaynakları"],["04:01","Seni Kim Soğutur?"],["05:06","Söz Yazarken Kim Oluyor?"],["05:47","Yayınlanmamış Şiirler"],["06:24","Sahnede Evlenme Teklifleri"],["07:18","Canlı: Bir Tek Ben Anlarım"],["09:51","Oyun: Şarkıyı Tahmin Et"],["13:24","Sahnede Kim Etkiler? Duman"],["14:05","Canlı: Papatyalar (Henüz Yayınlanmadı)"],["16:20","Cesaret Sorusu: Nazlı Kim?"],["17:45","Kulaklık Kazaları"],["18:29","Sahne Totemi: Sakız"],["19:18","Ablalar ve DJ Baba"],["20:07","18 Yaşındaki Haline Mesaj"],["21:35","Canlı: Zalim"],["23:20","Canlı: Güneş Topla Benim İçin"],["25:13","Oyun: Düşünmeden Cevapla"],["26:58","Kapanış: Nazlı"]
+  ["00:00","Öne Çıkanlar"],["00:22","Açılış"],["01:04","“Zehirli” Kime Yazıldı?"],["01:35","Müzik Dersinde Rap Şov"],["02:38","İlham Kaynakları"],["04:05","Seni Kim Soğutur?"],["05:11","Söz Yazarken Kim Oluyor?"],["05:51","Yayınlanmamış Şiirler"],["06:28","Sahnede Evlenme Teklifleri"],["07:22","Canlı: Bir Tek Ben Anlarım"],["09:56","Oyun: Şarkıyı Tahmin Et"],["13:33","Sahnede Kim Etkiler? Duman"],["14:13","Canlı: Papatyalar (Henüz Yayınlanmadı)"],["16:29","Cesaret Sorusu: Nazlı Kim?"],["18:25","Kulaklık Kazaları"],["19:12","Sahne Totemi: Sakız"],["20:01","Ablalar ve DJ Baba"],["20:50","18 Yaşındaki Haline Mesaj"],["22:17","Canlı: Zalim"],["24:03","Canlı: Güneş Topla Benim İçin"],["26:03","Oyun: Düşünmeden Cevapla"],["27:34","Kapanış: Nazlı"]
 ].map(([t, n]) => { const [m, s] = t.split(":").map(Number); return { t, s: m * 60 + s, n }; });
 
 const v = document.getElementById("v");
